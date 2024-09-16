@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Monospace" rel="stylesheet">
+    <!-- Menghubungkan file CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <p id="typing-text"></p>
+</body>
+</html>
+<script>
+    const typingTextElement = document.getElementById('typing-text');
+
+const texts = ["Nyari apaan lu?"];
+let currentTextIndex = 0;
+let currentCharIndex = 0;
+let typingSpeed = 80; // Speed of typing
+let delayBetweenTexts = 1000; // Delay between changing texts
+
+function typeText() {
+  if (currentCharIndex < texts[currentTextIndex].length) {
+    typingTextElement.textContent += texts[currentTextIndex].charAt(currentCharIndex);
+    currentCharIndex++;
+    setTimeout(typeText, typingSpeed);
+  } else {
+    setTimeout(deleteText, delayBetweenTexts);
+  }
+}
+
+function deleteText() {
+  if (currentCharIndex > 0) {
+    typingTextElement.textContent = typingTextElement.textContent.slice(0, -1);
+    currentCharIndex--;
+    setTimeout(deleteText, typingSpeed);
+  } else {
+    currentTextIndex = (currentTextIndex + 1) % texts.length;
+    setTimeout(typeText, typingSpeed);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  typeText();
+});
+  </script>
+  <style>
+    body {
+    font-family: monospace;
+    background-color: black;
+    color: white;
+}
+  </style>
